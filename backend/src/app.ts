@@ -10,11 +10,12 @@ export function createApp() {
   const app = express();
 
   app.use(helmet());
-  const allowedOrigins = env.CLIENT_URL.split(',').map((o) => o.trim());
+  const allowedOrigins = env.CLIENT_URL.split(',').map((o) => o.trim().replace(/\/$/, ''));
   app.use(
     cors({
       origin: (origin, cb) => {
-        if (!origin || allowedOrigins.some((o) => origin.startsWith(o))) {
+        const normalized = (origin ?? '').replace(/\/$/, '');
+        if (!origin || allowedOrigins.includes(normalized)) {
           cb(null, true);
         } else {
           cb(new Error(`CORS: origin ${origin} not allowed`));
