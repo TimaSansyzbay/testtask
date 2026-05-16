@@ -90,6 +90,7 @@ export function useSpeechRecognition(options: UseSpeechRecognitionOptions = {}) 
       recognition.onresult = null;
       recognition.onend = null;
       recognition.onerror = null;
+      setListening(false);
       try {
         recognition.stop();
       } catch {

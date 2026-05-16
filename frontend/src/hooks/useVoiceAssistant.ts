@@ -121,6 +121,11 @@ export function useVoiceAssistant() {
     }
   }, [stopSpeaking, startListening, syncPhase]);
 
+  const changeLang = useCallback((newLang: string) => {
+    stopListening();
+    setLang(newLang);
+  }, [stopListening]);
+
   return {
     active,
     phase,
@@ -130,7 +135,7 @@ export function useVoiceAssistant() {
     supported,
     error,
     lang,
-    setLang,
+    setLang: changeLang,
     enter,
     exit,
     interrupt,
