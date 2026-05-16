@@ -7,9 +7,12 @@ import { useVoiceActivityDetection } from './useVoiceActivityDetection';
 
 export type VoicePhase = 'idle' | 'listening' | 'thinking' | 'speaking';
 
+const BROWSER_LANG = navigator.language || 'en-US';
+
 export function useVoiceAssistant() {
   const [active, setActive] = useState(false);
   const [phase, setPhase] = useState<VoicePhase>('idle');
+  const [lang, setLang] = useState(BROWSER_LANG);
 
   const activeRef = useRef(false);
   const phaseRef = useRef<VoicePhase>('idle');
@@ -24,6 +27,7 @@ export function useVoiceAssistant() {
 
   const { transcript, listening, supported, error, startListening, stopListening } =
     useSpeechRecognition({
+      lang,
       onFinalTranscript: (text: string) => {
         if (!activeRef.current) return;
         syncPhase('thinking');
@@ -125,6 +129,8 @@ export function useVoiceAssistant() {
     speaking,
     supported,
     error,
+    lang,
+    setLang,
     enter,
     exit,
     interrupt,

@@ -1,18 +1,26 @@
 import { AudioOutlined, CloseOutlined } from '@ant-design/icons';
-import { Tooltip } from 'antd';
+import { Select, Tooltip } from 'antd';
 import type { VoicePhase } from '@/hooks/useVoiceAssistant';
 import { cn } from '@/utils/cn';
+
+const LANGUAGES = [
+  { value: 'en-US', label: '🇺🇸 EN' },
+  { value: 'ru-RU', label: '🇷🇺 RU' },
+  { value: 'kk-KZ', label: '🇰🇿 KZ' },
+];
 
 type VoiceModeBarProps = {
   phase: VoicePhase;
   transcript: string;
+  lang: string;
+  onLangChange: (lang: string) => void;
   onInterrupt: () => void;
   onExit: () => void;
 };
 
 const WAVE_HEIGHTS = [10, 18, 24, 18, 10];
 
-export function VoiceModeBar({ phase, transcript, onInterrupt, onExit }: VoiceModeBarProps) {
+export function VoiceModeBar({ phase, transcript, lang, onLangChange, onInterrupt, onExit }: VoiceModeBarProps) {
   return (
     <div className="flex flex-col gap-2">
       <div
@@ -108,9 +116,19 @@ export function VoiceModeBar({ phase, transcript, onInterrupt, onExit }: VoiceMo
         </div>
       </div>
 
-      <p className="text-center text-xs text-[var(--chat-text-muted)]">
-        Hands-free conversational AI mode · Chrome & Edge only
-      </p>
+      <div className="flex items-center justify-between px-1">
+        <p className="text-xs text-[var(--chat-text-muted)]">
+          Hands-free AI · Chrome & Edge only
+        </p>
+        <Select
+          size="small"
+          value={lang}
+          onChange={onLangChange}
+          options={LANGUAGES}
+          className="w-28"
+          disabled={phase === 'thinking'}
+        />
+      </div>
     </div>
   );
 }
