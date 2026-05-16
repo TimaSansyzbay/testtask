@@ -13,6 +13,7 @@ type VoiceModeBarProps = {
   phase: VoicePhase;
   transcript: string;
   lang: string;
+  error: string | null;
   onLangChange: (lang: string) => void;
   onInterrupt: () => void;
   onExit: () => void;
@@ -20,7 +21,7 @@ type VoiceModeBarProps = {
 
 const WAVE_HEIGHTS = [10, 18, 24, 18, 10];
 
-export function VoiceModeBar({ phase, transcript, lang, onLangChange, onInterrupt, onExit }: VoiceModeBarProps) {
+export function VoiceModeBar({ phase, transcript, lang, error, onLangChange, onInterrupt, onExit }: VoiceModeBarProps) {
   return (
     <div className="flex flex-col gap-2">
       <div
@@ -116,9 +117,15 @@ export function VoiceModeBar({ phase, transcript, lang, onLangChange, onInterrup
         </div>
       </div>
 
+      {error && (
+        <p className="rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-xs text-red-400">
+          {error}
+        </p>
+      )}
+
       <div className="flex items-center justify-between px-1">
         <p className="text-xs text-[var(--chat-text-muted)]">
-          Hands-free AI · Chrome & Edge only
+          English gives best results · Chrome & Edge only
         </p>
         <Select
           size="small"

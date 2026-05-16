@@ -9,7 +9,7 @@ import { VoiceModeBar } from './VoiceModeBar';
 
 export function ChatContainer() {
   const { clearMessages, messages, isLoading } = useChat();
-  const { active, phase, transcript, lang, setLang, supported, enter, exit, interrupt } = useVoiceAssistant();
+  const { active, phase, transcript, lang, setLang, supported, error: voiceError, enter, exit, interrupt } = useVoiceAssistant();
   const hasMessages = messages.length > 0;
 
   return (
@@ -76,6 +76,7 @@ export function ChatContainer() {
             phase={phase}
             transcript={transcript}
             lang={lang}
+            error={voiceError}
             onLangChange={setLang}
             onInterrupt={interrupt}
             onExit={exit}
