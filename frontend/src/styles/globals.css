@@ -1,0 +1,70 @@
+@import 'tailwindcss';
+
+:root {
+  --chat-bg: #0a1222;
+  --chat-surface: #111d33;
+  --chat-surface-elevated: #162544;
+  --chat-border: rgba(100, 140, 220, 0.2);
+  --chat-primary: #4a7dff;
+  --chat-primary-hover: #5d8fff;
+  --chat-text: #ffffff;
+  --chat-text-muted: #8fa3c4;
+  --chat-user-bubble: #2a4a8a;
+  --chat-ai-bubble: #141f38;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--chat-bg);
+  color: var(--chat-text);
+}
+
+.prose p {
+  margin: 0 0 0.5em;
+  color: var(--chat-text);
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose ul,
+.prose ol {
+  margin: 0.25em 0 0.5em;
+  padding-left: 1.25em;
+  color: var(--chat-text);
+}
+
+.prose pre {
+  margin: 0;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.prose code {
+  color: var(--chat-text);
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 140, 220, 0.2);
+  border-radius: 99px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 140, 220, 0.4);
+}
